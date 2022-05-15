@@ -8,4 +8,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'my-store';
   imgUrl = '';
+
+  onloaded(url: string){
+    console.log('From father', url);
+  }
 }

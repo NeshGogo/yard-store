@@ -1,4 +1,4 @@
 <div>
   <input type="text" [(ngModel)]="imgUrl">
 </div>
-<app-img [url]="imgUrl"></app-img>
+<app-img [url]="imgUrl" (onLoadedTest)="onloaded($event)"></app-img>
