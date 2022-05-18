@@ -1,7 +1,8 @@
 <div>
   <input type="text" [(ngModel)]="imgUrl">
 </div>
-<app-img [url]="imgUrl" (onLoadedTest)="onloaded($event)"></app-img>
+<button (click)="toggleImage()">show</button>
+<app-img *ngIf="this.toggle" [url]="imgUrl" (onLoadedTest)="onloaded($event)"></app-img>
 
 
 <app-product *ngFor="let product of products" [product]="product"></app-product>

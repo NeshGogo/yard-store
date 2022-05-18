@@ -9,7 +9,7 @@ import { Product } from './models/product.model';
 export class AppComponent {
   title = 'my-store';
   imgUrl = '';
-
+  toggle = true;
   products: Product[] = [
     {
       id: '1',
@@ -39,5 +39,9 @@ export class AppComponent {
 
   onloaded(url: string){
     console.log('From father', url);
+  }
+
+  toggleImage(): void{
+    this.toggle = !this.toggle;
   }
 }
