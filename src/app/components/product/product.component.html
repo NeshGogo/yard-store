@@ -1,4 +1,5 @@
 <app-img [url]="product.image"></app-img>
 <h2>{{ product.price | currency: "RD$" }}</h2>
 <p>{{ product.title }}</p>
+<p appHiglight>{{product.description}}</p>
 <button type="button" (click)="addProduct()">Add to Cart</button>

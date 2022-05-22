@@ -12,6 +12,7 @@ import { NavComponent } from './components/nav/nav.component';
 import { ReversePipe } from './pipes/reverse.pipe';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
 import { VowelSubstitutePipe } from './pipes/vowel-substitute.pipe';
+import { HiglightDirective } from './directives/higlight.directive';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { VowelSubstitutePipe } from './pipes/vowel-substitute.pipe';
     ReversePipe,
     TimeAgoPipe,
     VowelSubstitutePipe,
+    HiglightDirective,
   ],
   imports: [
     BrowserModule,
