@@ -8,18 +8,26 @@ import { Product } from '../../models/product.model';
 })
 export class ProductComponent {
   @Output() addedProduct = new EventEmitter<Product>();
+  @Output() ShowDetail = new EventEmitter<string>();
 
   @Input() product: Product = {
     id: '',
     title: '',
-    image: '',
+    images: [],
     price: 0,
-    category: '',
+    category: {
+      id: '',
+      name: '',
+    },
     description: '',
   }
   constructor() { }
 
   addProduct(): void {
     this.addedProduct.emit(this.product);
+  }
+
+  onShowDetail(): void{
+    this.ShowDetail.emit(this.product.id);
   }
 }
