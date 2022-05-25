@@ -13,6 +13,7 @@ import { ReversePipe } from './pipes/reverse.pipe';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
 import { VowelSubstitutePipe } from './pipes/vowel-substitute.pipe';
 import { HiglightDirective } from './directives/higlight.directive';
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { HiglightDirective } from './directives/higlight.directive';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    SwiperModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

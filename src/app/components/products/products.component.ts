@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product.model';
 import { ProductsService } from 'src/app/services/products.service';
 import { StoreService } from 'src/app/services/store.service';
+import SwiperCore  from 'swiper';
 
 @Component({
   selector: 'app-products',
@@ -13,6 +14,17 @@ export class ProductsComponent implements OnInit {
   total: number = 0;
   products: Product[] = [];
   showProductDetail = false;
+  productChosen: Product = {
+    id: '',
+    title: '',
+    images: [],
+    price: 0,
+    category: {
+      id: '',
+      name: '',
+    },
+    description: '',
+  }
 
   constructor(
     private storeService: StoreService,
@@ -39,7 +51,8 @@ export class ProductsComponent implements OnInit {
   onShowDetail(id: string): void {
     console.log(id);
     this.productsService.getById(id).subscribe((product) => {
-      console.log(product);
+      this.productChosen = product;
+      this.toggleProductDetail();
     });
   }
 }
