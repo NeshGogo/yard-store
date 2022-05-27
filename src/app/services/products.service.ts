@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Product } from '../models/product.model';
+import { CreateProductDTO, Product } from '../models/product.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,5 +18,9 @@ export class ProductsService {
 
   getById(id: string): Observable<Product> {
     return this.http.get<Product>(`${this._api}/${id}`);
+  }
+
+  set(dto: CreateProductDTO){
+    return this.http.post<Product>(this._api, dto);
   }
 }

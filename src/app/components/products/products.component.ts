@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/models/product.model';
+import { CreateProductDTO, Product } from 'src/app/models/product.model';
 import { ProductsService } from 'src/app/services/products.service';
 import { StoreService } from 'src/app/services/store.service';
 import SwiperCore  from 'swiper';
@@ -54,5 +54,19 @@ export class ProductsComponent implements OnInit {
       this.productChosen = product;
       this.toggleProductDetail();
     });
+  }
+
+  addNewProduct(){
+    const product: CreateProductDTO = {
+      title: 'New Product',
+      description: 'Bla bla bla',
+      images: [''],
+      categoryId: '1',
+      price: 200,
+    }
+    this.productsService.set(product)
+      .subscribe(product => {
+        this.products.unshift(product);
+      });
   }
 }
