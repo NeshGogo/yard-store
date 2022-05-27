@@ -27,4 +27,8 @@ export class ProductsService {
   put(id: string, dto: Partial<CreateProductDTO>) {
     return this.http.put<Product>(`${this._api}/${id}`, dto);
   }
+
+  delete(id: string){
+    return this.http.delete<boolean>(`${this._api}/${id}`);
+  }
 }
