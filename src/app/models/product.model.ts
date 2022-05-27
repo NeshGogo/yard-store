@@ -15,3 +15,8 @@ export interface Category{
 export interface CreateProductDTO extends Omit<Product, 'id'|'category'>{
   categoryId: string;
 }
+
+// this is other way to handled partial. Is usefull when we don't want to brake the pattern of DTO.
+export interface UpdateProductDTO extends Partial<CreateProductDTO> {
+
+}
