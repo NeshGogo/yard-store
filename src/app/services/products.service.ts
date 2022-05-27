@@ -23,4 +23,8 @@ export class ProductsService {
   set(dto: CreateProductDTO){
     return this.http.post<Product>(this._api, dto);
   }
+
+  put(id: string, dto: Partial<CreateProductDTO>) {
+    return this.http.put<Product>(`${this._api}/${id}`, dto);
+  }
 }

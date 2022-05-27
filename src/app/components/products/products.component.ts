@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CreateProductDTO, Product } from 'src/app/models/product.model';
 import { ProductsService } from 'src/app/services/products.service';
 import { StoreService } from 'src/app/services/store.service';
-import SwiperCore  from 'swiper';
+import SwiperCore from 'swiper';
 
 @Component({
   selector: 'app-products',
@@ -24,7 +24,7 @@ export class ProductsComponent implements OnInit {
       name: '',
     },
     description: '',
-  }
+  };
 
   constructor(
     private storeService: StoreService,
@@ -56,17 +56,29 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  addNewProduct(){
+  addNewProduct() {
     const product: CreateProductDTO = {
       title: 'New Product',
       description: 'Bla bla bla',
       images: [''],
       categoryId: '1',
       price: 200,
-    }
-    this.productsService.set(product)
-      .subscribe(product => {
-        this.products.unshift(product);
-      });
+    };
+    this.productsService.set(product).subscribe((product) => {
+      this.products.unshift(product);
+    });
+  }
+
+  updateProduct() {
+    const change = {
+      title: 'change title',
+    };
+    const { id } = this.productChosen;
+    this.productsService.put(id, change)
+    .subscribe(product => {
+      const index = this.products.findIndex(p => p.id === id);
+      this.products[index] = product;
+      this.productChosen = product;
+    })
   }
 }
