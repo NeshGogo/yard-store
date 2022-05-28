@@ -9,7 +9,7 @@ import { retry } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class ProductsService {
-  private readonly _api: string = environment.api + '//products';
+  private readonly _api: string = environment.api + '/products';
 
   constructor(private http: HttpClient) {}
 
