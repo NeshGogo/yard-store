@@ -8,7 +8,7 @@ import {
 } from '@angular/common/http';
 import { CreateProductDTO, Product } from '../models/product.model';
 import { Observable, pipe, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { retry, catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +25,18 @@ export class ProductsService {
       params = params.set('limit', limit);
       params = params.set('offset', offset);
     }
-    return this.http.get<Product[]>(this._api, { params }).pipe(retry(5));
+    return this.http.get<Product[]>(this._api, { params })
+    .pipe(
+      retry(5),
+      map((products) => {
+        return products.map( product => {
+          return {
+            ...product,
+            taxes: product.price * .18
+          }
+        })
+      })
+    );
   }
 
   getByPagination(limit: number, offset: number): Observable<Product[]> {
