@@ -58,6 +58,8 @@ export class ProductsComponent implements OnInit {
     this.productsService.getById(id).subscribe((product) => {
       this.productChosen = product;
       this.toggleProductDetail();
+    }, (err) => {
+      alert(err);
     });
   }
 
