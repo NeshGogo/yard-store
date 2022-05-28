@@ -7,8 +7,8 @@ import {
   HttpStatusCode,
 } from '@angular/common/http';
 import { CreateProductDTO, Product } from '../models/product.model';
-import { Observable, pipe, throwError } from 'rxjs';
-import { retry, catchError, map } from 'rxjs/operators';
+import { Observable, throwError, zip } from 'rxjs';
+import { retry, catchError, map, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -77,5 +77,24 @@ export class ProductsService {
 
   delete(id: string): Observable<boolean> {
     return this.http.delete<boolean>(`${this._api}/${id}`);
+  }
+
+  // This method is for example purpose
+  readAndUpdate(id:string): Observable<Product> {
+    // Using ZIp to execute multiple observable at the same time like Promise.All.
+    zip(
+      this.getById(id),
+      this.put(id, {title: 'change'})
+    ).subscribe((values) => {
+      const read = values[0];
+      const update = values[1];
+    })
+    
+    // usign switchMap to do different thing after one complete;
+    return this.getById(id)
+    .pipe(
+      switchMap( product => this.put(product.id, {title: 'change'}))
+    );
+    
   }
 }
