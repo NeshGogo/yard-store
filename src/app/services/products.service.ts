@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { CreateProductDTO, Product } from '../models/product.model';
-import { Observable } from 'rxjs';
+import { Observable, pipe } from 'rxjs';
+import { retry } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
-  private readonly _api: string = environment.api + '/products';
+  private readonly _api: string = environment.api + '//products';
 
   constructor(private http: HttpClient) {}
 
@@ -19,7 +20,8 @@ export class ProductsService {
       params = params.set('limit', limit);
       params = params.set('offset', offset);
     }
-    return this.http.get<Product[]>(this._api, { params });
+    return this.http.get<Product[]>(this._api, { params })
+    .pipe(retry(5));
   }
 
   getByPagination(limit: number, offset: number): Observable<Product[]> {
