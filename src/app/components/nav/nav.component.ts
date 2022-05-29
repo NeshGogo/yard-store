@@ -9,15 +9,17 @@ import { StoreService } from 'src/app/services/store.service';
 export class NavComponent implements OnInit {
   showMenu = false;
   counter = 0;
+  userEmail = '';
 
-  constructor(
-    private storeService: StoreService,
-  ) {}
+  constructor(private storeService: StoreService) {}
 
   ngOnInit(): void {
     this.storeService.myCart$.subscribe((products) => {
       this.counter = products.length;
-    })
+    });
+    this.storeService.user$.subscribe((user) => {
+      this.userEmail = user.email;
+    });
   }
 
   toggleMenu(): void {

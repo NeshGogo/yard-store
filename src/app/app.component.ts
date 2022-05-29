@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { map, switchMap } from 'rxjs';
 
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { CreateUserDTO } from './models/user.model';
+import { StoreService } from './services/store.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +17,8 @@ export class AppComponent {
   toggle = true;
   constructor(
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private storeService: StoreService
   ) {}
 
   onloaded(url: string) {
@@ -31,15 +34,19 @@ export class AppComponent {
       name: 'Rafael',
       email: 'rafael@test.com',
       password: '123456',
-    }
-    this.userService.create(user)
-      .subscribe(user => console.log(user));
+    };
+    this.userService.create(user).subscribe((user) => console.log(user));
   }
 
-  login(){
-    this.authService.login('rafael@test.com', '123456')
-      .subscribe((response) => {
-        console.log(response);
-      })
+  login() {
+    this.authService
+      .login('rafael@test.com', '123456')
+      .pipe(
+        map((response) => response.access_token),
+        switchMap((token) => this.authService.profile(token))
+      )
+      .subscribe((user) => {
+        this.storeService.addUser(user);
+      });
   }
 }
