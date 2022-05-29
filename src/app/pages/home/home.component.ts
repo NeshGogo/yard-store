@@ -23,8 +23,9 @@ export class HomeComponent implements OnInit {
       this.products = this.products.concat(products);
     });
   }
-
-  loadMore() {
-    
+ 
+  loadMore(): void {
+    this.offset = this.limit;
+    this.fetchData();
   }
 }
