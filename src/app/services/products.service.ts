@@ -9,6 +9,7 @@ import {
 import { CreateProductDTO, Product } from '../models/product.model';
 import { Observable, throwError, zip } from 'rxjs';
 import { retry, catchError, map, switchMap } from 'rxjs/operators';
+import { checkTime } from '../interceptors/time.interceptor';
 
 @Injectable({
   providedIn: 'root',
@@ -25,18 +26,19 @@ export class ProductsService {
       params = params.set('limit', limit);
       params = params.set('offset', offset);
     }
-    return this.http.get<Product[]>(this._api, { params })
-    .pipe(
-      retry(5),
-      map((products) => {
-        return products.map( product => {
-          return {
-            ...product,
-            taxes: product.price * .18
-          }
+    return this.http
+      .get<Product[]>(this._api, { params, context: checkTime() })
+      .pipe(
+        retry(5),
+        map((products) => {
+          return products.map((product) => {
+            return {
+              ...product,
+              taxes: product.price * 0.18,
+            };
+          });
         })
-      })
-    );
+      );
   }
 
   getByPagination(limit: number, offset: number): Observable<Product[]> {
@@ -80,21 +82,18 @@ export class ProductsService {
   }
 
   // This method is for example purpose
-  readAndUpdate(id:string): Observable<Product> {
+  readAndUpdate(id: string): Observable<Product> {
     // Using ZIp to execute multiple observable at the same time like Promise.All.
-    zip(
-      this.getById(id),
-      this.put(id, {title: 'change'})
-    ).subscribe((values) => {
-      const read = values[0];
-      const update = values[1];
-    })
-    
-    // usign switchMap to do different thing after one complete;
-    return this.getById(id)
-    .pipe(
-      switchMap( product => this.put(product.id, {title: 'change'}))
+    zip(this.getById(id), this.put(id, { title: 'change' })).subscribe(
+      (values) => {
+        const read = values[0];
+        const update = values[1];
+      }
     );
-    
+
+    // usign switchMap to do different thing after one complete;
+    return this.getById(id).pipe(
+      switchMap((product) => this.put(product.id, { title: 'change' }))
+    );
   }
 }

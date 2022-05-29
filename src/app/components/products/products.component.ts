@@ -54,12 +54,12 @@ export class ProductsComponent implements OnInit {
   }
 
   onShowDetail(id: string): void {
-    console.log(id);
-    this.productsService.getById(id).subscribe((product) => {
-      this.productChosen = product;
-      this.toggleProductDetail();
-    }, (err) => {
-      alert(err);
+    this.productsService.getById(id).subscribe({
+      next: (product) => {
+        this.productChosen = product;
+        this.toggleProductDetail();
+      },
+      error: alert // this is the commun alert of js.
     });
   }
 
