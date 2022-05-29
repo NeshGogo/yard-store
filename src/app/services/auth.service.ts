@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user.model';
 import { Auth } from '../models/auth.model';
+import { TokenService } from './token.service';
+import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,17 +13,18 @@ import { Auth } from '../models/auth.model';
 export class AuthService {
   private api = `${environment.api}/auth`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   login(email: string, password: string) {
-    return this.http.post<Auth>(`${this.api}/login`, {email, password});
+    return this.http.post<Auth>(`${this.api}/login`, {email, password})
+    .pipe(
+      tap(rep => {
+        this.tokenService.set(rep.access_token);
+      })
+    );
   }
 
-  profile(token: string) {
-    return this.http.get<User>(`${this.api}/profile`, {
-      headers: {
-        authorization: `Bearer ${token}`,
-      }
-    });
+  profile() {
+    return this.http.get<User>(`${this.api}/profile`);
   }
 }

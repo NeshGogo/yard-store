@@ -42,8 +42,7 @@ export class AppComponent {
     this.authService
       .login('rafael@test.com', '123456')
       .pipe(
-        map((response) => response.access_token),
-        switchMap((token) => this.authService.profile(token))
+        switchMap(() => this.authService.profile())
       )
       .subscribe((user) => {
         this.storeService.addUser(user);
