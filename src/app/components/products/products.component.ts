@@ -1,18 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CreateProductDTO, Product } from 'src/app/models/product.model';
 import { ProductsService } from 'src/app/services/products.service';
 import { StoreService } from 'src/app/services/store.service';
-import SwiperCore from 'swiper';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent {
   shopingCart: Product[] = [];
   total: number = 0;
-  products: Product[] = [];
+  @Input() products: Product[] = [];
   showProductDetail = false;
   productChosen: Product = {
     id: '',
@@ -32,17 +31,7 @@ export class ProductsComponent implements OnInit {
     private storeService: StoreService,
     private productsService: ProductsService
   ) {}
-
-  ngOnInit(): void {
-    this.shopingCart = this.storeService.get();
-    this.fetchData();
-  }
-
-  fetchData(): void {
-    this.productsService.get(this.limit, this.offset).subscribe((products) => {
-      this.products = this.products.concat(products);
-    });
-  }
+ 
 
   onAddedToShoppingCart(product: Product): void {
     this.storeService.add(product);
@@ -97,8 +86,8 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  loadMore(): void {
-    this.offset = this.limit;
-    this.fetchData();
-  }
+  // loadMore(): void {
+  //   this.offset = this.limit;
+  //   this.fetchData();
+  // }
 }

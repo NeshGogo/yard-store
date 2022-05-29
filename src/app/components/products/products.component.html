@@ -1,5 +1,4 @@
 <button type="button" (click)="addNewProduct()">Add new</button>
-<button type="button" (click)="loadMore()">Load more</button>
 <button type="button" (click)="onShowDetail('123213')">Throw error</button>
 <div class="products--grid">
   <app-product
@@ -8,6 +7,7 @@
     (addedProduct)="onAddedToShoppingCart($event)"
     (ShowDetail)="onShowDetail($event)"
   ></app-product>
+  <button type="button">Load more</button>
 </div>
 
 <div class="product-detail" [class.active]="showProductDetail">
