@@ -26,6 +26,10 @@ const routes: Routes = [
     component: CategoryComponent,
   },
   {
+    path: 'categories/:id',
+    component: CategoryComponent,
+  },
+  {
     path: 'cart',
     component: MycartComponent,
   },
