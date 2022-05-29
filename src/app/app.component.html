@@ -2,6 +2,10 @@
 <hr>
 <button (click)="this.createUser()">Create user</button>
 <button (click)="this.login()">Login</button>
+<button (click)="this.downloadFile()">Download Text</button>
+<button (click)="this.downloadFile('pdf')">Download PDF</button>
+<input type="file" name="" id="" (change)="this.uploadFile($event)">
+<img [src]="this.imgUploaded" alt="">
 <hr>
 <app-products></app-products>
 
