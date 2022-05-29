@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product.model';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ProductsService } from 'src/app/services/products.service';
-import {switchMap, tap } from 'rxjs';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-category',
-  templateUrl: './category.component.html',
+  template: `<app-products
+    [products]="products"
+    (loadMore)="loadMore()"
+  ></app-products>`,
   styleUrls: ['./category.component.scss'],
 })
 export class CategoryComponent implements OnInit {
@@ -23,18 +26,30 @@ export class CategoryComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap
       .pipe(
-        tap((params: ParamMap) => {
+        switchMap((params: ParamMap) => {
           this.categoryId = params.get('id');
-        }),
-        switchMap(() => {
           if (this.categoryId) {
-            return this.productsService.getByCategory(this.categoryId, this.limit, this.offset);
+            return this.productsService.getByCategory(
+              this.categoryId,
+              this.limit,
+              this.offset
+            );
           }
           return [];
         })
       )
       .subscribe((products) => {
         this.products = products;
+      });
+  }
+
+  loadMore() {
+    if (!this.categoryId) return;
+    this.offset = this.limit;
+    this.productsService
+      .getByCategory(this.categoryId, this.limit, this.offset)
+      .subscribe((products) => {
+        this.products = this.products.concat(products);
       });
   }
 }
