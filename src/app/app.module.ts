@@ -24,6 +24,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { RecoveryComponent } from './pages/recovery/recovery.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ProductDatailComponent } from './pages/product-datail/product-datail.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
     RegisterComponent,
     RecoveryComponent,
     ProfileComponent,
+    ProductDatailComponent,
   ],
   imports: [
     BrowserModule,

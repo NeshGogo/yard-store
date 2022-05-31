@@ -1,4 +1,6 @@
-<app-img *ngIf="product.images.length > 0" [url]="product.images[0]"></app-img>
+<a [routerLink]="['/products', product.id]">
+  <app-img *ngIf="product.images.length > 0" [url]="product.images[0]"></app-img>
+</a>
 <h2>Price: {{ product.price | currency: "RD$" }}</h2>
 <h2 *ngIf="product.taxes">Taxes: {{ product.taxes | currency: "RD$" }}</h2>
 <p>{{ product.title }}</p>
