@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CreateProductDTO, Product } from 'src/app/models/product.model';
 import { ProductsService } from 'src/app/services/products.service';
@@ -13,6 +14,11 @@ export class ProductsComponent {
   total: number = 0;
   @Input() products: Product[] = [];
   @Output() loadMore = new EventEmitter();
+  @Input() set productId(id: string | null) {
+    if (id) {
+      this.onShowDetail(id);
+    }
+  }
   showProductDetail = false;
   productChosen: Product = {
     id: '',
@@ -30,9 +36,9 @@ export class ProductsComponent {
 
   constructor(
     private storeService: StoreService,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private location: Location,
   ) {}
- 
 
   onAddedToShoppingCart(product: Product): void {
     this.storeService.add(product);
@@ -49,7 +55,7 @@ export class ProductsComponent {
         this.productChosen = product;
         this.toggleProductDetail();
       },
-      error: alert // this is the commun alert of js.
+      error: alert, // this is the commun alert of js.
     });
   }
 
@@ -89,5 +95,10 @@ export class ProductsComponent {
 
   load(): void {
     this.loadMore.emit();
+  }
+
+  onClose(): void {
+    this.location.back();
+    this.toggleProductDetail();
   }
 }

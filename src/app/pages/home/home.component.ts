@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/models/product.model';
 import { ProductsService } from 'src/app/services/products.service';
 
@@ -8,14 +9,21 @@ import { ProductsService } from 'src/app/services/products.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  productId: string | null = null;
   products: Product[] = [];
   limit = 10;
   offset = 0;
 
-  constructor( private productsService: ProductsService) { }
+  constructor( private productsService: ProductsService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.fetchData();
+    this.route.queryParamMap.subscribe((query) => {
+      const id = query.get('product');
+      if (id) {
+        this.productId = id;
+      }
+    });
   }
 
   fetchData(): void {

@@ -6,4 +6,4 @@
 <p>{{ product.title }}</p>
 <p>{{product.description}}</p>
 <button type="button" (click)="addProduct()">Add to Cart</button>
-<button type="button" (click)="onShowDetail()">See detail</button>
+<a routerLink="." [queryParams]="{ product: product.id }">See detail</a>

@@ -9,10 +9,12 @@ import { switchMap } from 'rxjs';
   template: `<app-products
     [products]="products"
     (loadMore)="loadMore()"
+    [productId]="productId"
   ></app-products>`,
   styleUrls: ['./category.component.scss'],
 })
 export class CategoryComponent implements OnInit {
+  productId: string | null = null;
   products: Product[] = [];
   categoryId: string | null = null;
   limit = 10;
@@ -40,6 +42,12 @@ export class CategoryComponent implements OnInit {
       )
       .subscribe((products) => {
         this.products = products;
+      });
+      this.route.queryParamMap.subscribe((query) => {
+        const id = query.get('product');
+        if (id) {
+          this.productId = id;
+        }
       });
   }
 
