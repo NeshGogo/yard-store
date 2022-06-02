@@ -5,26 +5,27 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ImgComponent } from './components/img/img.component';
-import { ProductComponent } from './components/product/product.component';
-import { ProductsComponent } from './components/products/products.component';
-import { NavComponent } from './components/nav/nav.component';
-import { ReversePipe } from './pipes/reverse.pipe';
-import { TimeAgoPipe } from './pipes/time-ago.pipe';
-import { VowelSubstitutePipe } from './pipes/vowel-substitute.pipe';
-import { HiglightDirective } from './directives/higlight.directive';
+import { ImgComponent } from './webSite/components/img/img.component';
+import { ProductComponent } from './webSite/components/product/product.component';
+import { ProductsComponent } from './webSite/components/products/products.component';
+import { NavComponent } from './webSite/components/nav/nav.component';
+import { ReversePipe } from './webSite/pipes/reverse.pipe';
+import { TimeAgoPipe } from './webSite/pipes/time-ago.pipe';
+import { VowelSubstitutePipe } from './webSite/pipes/vowel-substitute.pipe';
+import { HiglightDirective } from './webSite/directives/higlight.directive';
 import { SwiperModule } from 'swiper/angular';
-import { TimeInterceptor } from './interceptors/time.interceptor';
-import { TokenInterceptor } from './interceptors/token.interceptor';
-import { HomeComponent } from './pages/home/home.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { CategoryComponent } from './pages/category/category.component';
-import { MycartComponent } from './pages/mycart/mycart.component';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { RecoveryComponent } from './pages/recovery/recovery.component';
-import { ProfileComponent } from './pages/profile/profile.component';
-import { ProductDatailComponent } from './pages/product-datail/product-datail.component';
+import { TimeInterceptor } from './webSite/interceptors/time.interceptor';
+import { TokenInterceptor } from './webSite/interceptors/token.interceptor';
+import { HomeComponent } from './webSite/pages/home/home.component';
+import { NotFoundComponent } from './webSite/pages/not-found/not-found.component';
+import { CategoryComponent } from './webSite/pages/category/category.component';
+import { MycartComponent } from './webSite/pages/mycart/mycart.component';
+import { LoginComponent } from './webSite/pages/login/login.component';
+import { RegisterComponent } from './webSite/pages/register/register.component';
+import { RecoveryComponent } from './webSite/pages/recovery/recovery.component';
+import { ProfileComponent } from './webSite/pages/profile/profile.component';
+import { ProductDatailComponent } from './webSite/pages/product-datail/product-datail.component';
+import { LayoutComponent } from './webSite/components/layout/layout.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ProductDatailComponent } from './pages/product-datail/product-datail.co
     RecoveryComponent,
     ProfileComponent,
     ProductDatailComponent,
+    LayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,7 +65,7 @@ import { ProductDatailComponent } from './pages/product-datail/product-datail.co
     {
       multi: true,
       provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor
+      useClass: TokenInterceptor,
     },
   ],
   bootstrap: [AppComponent]
