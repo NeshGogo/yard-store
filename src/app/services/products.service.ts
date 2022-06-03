@@ -9,7 +9,7 @@ import {
 import { CreateProductDTO, Product } from '../models/product.model';
 import { Observable, throwError, zip } from 'rxjs';
 import { retry, catchError, map, switchMap } from 'rxjs/operators';
-import { checkTime } from '../webSite/interceptors/time.interceptor';
+import { checkTime } from '../interceptors/time.interceptor';
 
 @Injectable({
   providedIn: 'root',

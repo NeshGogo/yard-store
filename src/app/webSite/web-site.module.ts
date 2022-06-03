@@ -3,17 +3,11 @@ import { CommonModule } from '@angular/common';
 
 
 import { WebSiteRoutingModule } from './web-site-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
-import { ImgComponent } from './components/img/img.component';
-import { ProductComponent } from './components/product/product.component';
-import { ProductsComponent } from './components/products/products.component';
+
 import { NavComponent } from './components/nav/nav.component';
-import { ReversePipe } from './pipes/reverse.pipe';
-import { TimeAgoPipe } from './pipes/time-ago.pipe';
-import { VowelSubstitutePipe } from './pipes/vowel-substitute.pipe';
-import { HiglightDirective } from './directives/higlight.directive';
 import { HomeComponent } from './pages/home/home.component';
-import { NotFoundComponent } from '../components/not-found/not-found.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { MycartComponent } from './pages/mycart/mycart.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -27,16 +21,8 @@ import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   declarations: [
-    ImgComponent,
-    ProductComponent,
-    ProductsComponent,
     NavComponent,
-    ReversePipe,
-    TimeAgoPipe,
-    VowelSubstitutePipe,
-    HiglightDirective,
     HomeComponent,
-    NotFoundComponent,
     CategoryComponent,
     MycartComponent,
     LoginComponent,
@@ -50,6 +36,7 @@ import { SwiperModule } from 'swiper/angular';
     CommonModule,
     WebSiteRoutingModule,
     SwiperModule,
+    SharedModule,
   ]
 })
 export class WebSiteModule { }
