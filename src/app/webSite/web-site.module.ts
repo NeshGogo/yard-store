@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 
 import { WebSiteRoutingModule } from './web-site-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { QuicklinkModule } from 'ngx-quicklink';
 
 
 import { NavComponent } from './components/nav/nav.component';
@@ -35,6 +36,7 @@ import { SwiperModule } from 'swiper/angular';
     WebSiteRoutingModule,
     SwiperModule,
     SharedModule,
+    QuicklinkModule,
   ]
 })
 export class WebSiteModule { }
