@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { Category } from 'src/app/models/product.model';
+import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { StoreService } from 'src/app/services/store.service';
@@ -13,7 +14,7 @@ import { StoreService } from 'src/app/services/store.service';
 export class NavComponent implements OnInit {
   showMenu = false;
   counter = 0;
-  userEmail: string | null = null ;
+  user: User | null = null ;
   categories: Category[] = [];
 
   constructor(
@@ -26,8 +27,8 @@ export class NavComponent implements OnInit {
     this.storeService.myCart$.subscribe((products) => {
       this.counter = products.length;
     });
-    this.storeService.user$.subscribe((user) => {
-      this.userEmail = user?.email || null;
+    this.authService.user$.subscribe((user) => {
+      this.user = user;
     });
     this.categoriesService
       .get()
@@ -44,13 +45,10 @@ export class NavComponent implements OnInit {
     this.authService
       .login('rafael@test.com', '123456')
       .pipe(switchMap(() => this.authService.profile()))
-      .subscribe((user) => {
-        this.storeService.addUser(user);
-      });
+      .subscribe();
   }
-  
+
   logout(){
     this.authService.logout();
-    this.storeService.addUser(null);
   }
 }

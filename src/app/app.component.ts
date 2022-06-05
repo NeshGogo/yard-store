@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { map, switchMap } from 'rxjs';
 
 import { UserService } from './services/user.service';
@@ -6,17 +6,17 @@ import { AuthService } from './services/auth.service';
 import { CreateUserDTO } from './models/user.model';
 import { StoreService } from './services/store.service';
 import { FileService } from './services/file.service';
+import { TokenService } from './services/token.service';
 
 @Component({
   selector: 'app-root',
   template: `
     <router-outlet></router-outlet>
-    <button (click)="login()">Login</button>
     <button (click)="createUser()">Add user</button>
   `,
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'my-store';
   imgUrl = '';
   toggle = true;
@@ -26,8 +26,17 @@ export class AppComponent {
     private authService: AuthService,
     private userService: UserService,
     private storeService: StoreService,
-    private fileService: FileService
+    private fileService: FileService,
+    private tokenService: TokenService,
   ) {}
+
+  ngOnInit(): void {
+    const token = this.tokenService.get();
+    if(token){
+      this.authService.profile()
+      .subscribe();
+    }
+  }
 
   onloaded(url: string) {
     console.log('From father', url);
@@ -44,15 +53,6 @@ export class AppComponent {
       password: '123456',
     };
     this.userService.create(user).subscribe((user) => console.log(user));
-  }
-
-  login() {
-    this.authService
-      .login('rafael@test.com', '123456')
-      .pipe(switchMap(() => this.authService.profile()))
-      .subscribe((user) => {
-        this.storeService.addUser(user);
-      });
   }
 
   downloadFile(type = 'text') {
