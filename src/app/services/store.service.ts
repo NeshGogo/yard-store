@@ -14,6 +14,7 @@ export class StoreService {
     name: '',
     email: '',
     password: '',
+    role: 'costumer',
   });
   myCart$ = this.myCart.asObservable();
   user$ = this.user.asObservable();

@@ -36,7 +36,6 @@ import { SwiperModule } from 'swiper/angular';
     WebSiteRoutingModule,
     SwiperModule,
     SharedModule,
-    QuicklinkModule,
   ]
 })
 export class WebSiteModule { }

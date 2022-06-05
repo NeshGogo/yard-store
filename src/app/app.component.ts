@@ -9,14 +9,18 @@ import { FileService } from './services/file.service';
 
 @Component({
   selector: 'app-root',
-  template: '<router-outlet></router-outlet>',
+  template: `
+    <router-outlet></router-outlet>
+    <button (click)="login()">Login</button>
+    <button (click)="createUser()">Add user</button>
+  `,
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'my-store';
   imgUrl = '';
   toggle = true;
-  imgUploaded  = '';
+  imgUploaded = '';
 
   constructor(
     private authService: AuthService,
@@ -61,15 +65,14 @@ export class AppComponent {
       .subscribe(() => console.info('was ok'));
   }
 
-  uploadFile(event: Event){
+  uploadFile(event: Event) {
     const element = event?.target as HTMLInputElement;
     const file = element.files?.item(0);
-    if(!file){
+    if (!file) {
       return;
     }
-    this.fileService.upload(file)
-      .subscribe(resp => {
-        this.imgUploaded = resp.location
-      })
+    this.fileService.upload(file).subscribe((resp) => {
+      this.imgUploaded = resp.location;
+    });
   }
 }
