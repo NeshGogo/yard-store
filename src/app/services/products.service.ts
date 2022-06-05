@@ -69,6 +69,15 @@ export class ProductsService {
     );
   }
 
+  getByCategory(id: string, limit?: number, offset?: number): Observable<Product[]> {
+    let params = new HttpParams();
+    if (limit !== undefined && offset !== undefined) {
+      params = params.set('limit', limit);
+      params = params.set('offset', offset);
+    }
+    return this.http.get<Product[]>(`${environment.api}/categories/${id}/products`, { params });
+  }
+
   set(dto: CreateProductDTO): Observable<Product> {
     return this.http.post<Product>(this._api, dto);
   }

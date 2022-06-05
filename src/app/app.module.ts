@@ -5,36 +5,22 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ImgComponent } from './components/img/img.component';
-import { ProductComponent } from './components/product/product.component';
-import { ProductsComponent } from './components/products/products.component';
-import { NavComponent } from './components/nav/nav.component';
-import { ReversePipe } from './pipes/reverse.pipe';
-import { TimeAgoPipe } from './pipes/time-ago.pipe';
-import { VowelSubstitutePipe } from './pipes/vowel-substitute.pipe';
-import { HiglightDirective } from './directives/higlight.directive';
-import { SwiperModule } from 'swiper/angular';
+
 import { TimeInterceptor } from './interceptors/time.interceptor';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ImgComponent,
-    ProductComponent,
-    ProductsComponent,
-    NavComponent,
-    ReversePipe,
-    TimeAgoPipe,
-    VowelSubstitutePipe,
-    HiglightDirective,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    SwiperModule,
   ],
   providers: [
     {
@@ -45,7 +31,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     {
       multi: true,
       provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor
+      useClass: TokenInterceptor,
     },
   ],
   bootstrap: [AppComponent]
