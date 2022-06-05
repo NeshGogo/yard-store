@@ -23,6 +23,9 @@ const routes: Routes = [
       {
         path: 'categories',
         loadChildren: () => import('./modules/category/category.module').then((m) => m.CategoryModule),
+        data: {
+          preload: true,
+        }
       },
       {
         path: 'home',
