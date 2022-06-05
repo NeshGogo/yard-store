@@ -43,7 +43,7 @@ export class NavComponent implements OnInit {
 
   login() {
     this.authService
-      .login('rafael@test.com', '123456')
+      .login('admin@mail.com', 'admin123')
       .pipe(switchMap(() => this.authService.profile()))
       .subscribe();
   }

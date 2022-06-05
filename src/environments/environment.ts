@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   //api: 'https://fakestoreapi.com',
-  api: ' https://young-sands-07814.herokuapp.com/api',
+  api: ' https://damp-spire-59848.herokuapp.com/api',
  // api: '/api', // haciendo uso del proxy
 };
 
