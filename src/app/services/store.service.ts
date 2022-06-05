@@ -9,13 +9,7 @@ import { User } from '../models/user.model';
 export class StoreService {
   private shoppingCart: Product[] = [];
   private myCart = new BehaviorSubject<Product[]>([]);
-  private user = new BehaviorSubject<User>({
-    id: '',
-    name: '',
-    email: '',
-    password: '',
-    role: 'costumer',
-  });
+  private user = new BehaviorSubject<User | null>(null);
   myCart$ = this.myCart.asObservable();
   user$ = this.user.asObservable();
 
@@ -34,7 +28,7 @@ export class StoreService {
     this.myCart.next(this.shoppingCart);
   }
 
-  addUser(user: User){
+  addUser(user: User | null){
     this.user.next(user);
   }
 }

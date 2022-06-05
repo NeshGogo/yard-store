@@ -15,7 +15,11 @@
     <ul>
       <li><a routerLinkActive="active" routerLink="home">All</a></li>
       <li *ngFor="let category of categories">
-        <a routerLinkActive="active" [routerLink]="['categories', category.id]">{{ category.name }}</a>
+        <a
+          routerLinkActive="active"
+          [routerLink]="['categories', category.id]"
+          >{{ category.name }}</a
+        >
       </li>
     </ul>
   </div>
@@ -29,12 +33,22 @@
       <ul>
         <li><a routerLinkActive="active" routerLink="home">All</a></li>
         <li *ngFor="let category of categories">
-          <a routerLinkActive="active" [routerLink]="['categories', category.id]">{{ category.name }}</a>
+          <a
+            routerLinkActive="active"
+            [routerLink]="['categories', category.id]"
+            >{{ category.name }}</a
+          >
         </li>
       </ul>
     </nav>
     <div class="info">
-      <div class="account"><a routerLink="/profile">{{ this.userEmail }}</a></div>
+      <div class="account" *ngIf="userEmail; else notUser">
+        <a routerLink="/profile">{{ this.userEmail }}</a>
+        <button (click)="logout()">logout</button>
+      </div>
+      <ng-template #notUser>
+        <button (click)="login()">Login</button>
+      </ng-template>
       <div class="cart">
         <a href="">
           <img src="./assets/svg/icon_shopping_cart.svg" alt="cart" />

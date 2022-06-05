@@ -24,6 +24,10 @@ export class AuthService {
     );
   }
 
+  logout(){
+    this.tokenService.remove();
+  }
+
   profile() {
     return this.http.get<User>(`${this.api}/profile`);
   }
